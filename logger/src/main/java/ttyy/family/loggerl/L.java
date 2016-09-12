@@ -21,7 +21,7 @@ import ttyy.family.loggerl.util.LUtil;
  */
 public class L {
 
-    static List<LoggerAdapter> loggers = new ArrayList<LoggerAdapter>(){
+    static List<LoggerAdapter> loggers = new ArrayList<LoggerAdapter>() {
         {
             add(LoggerAdapter.Default);
             add(LoggerAdapter.File);
@@ -38,9 +38,10 @@ public class L {
 
     /**
      * 初始化文件记录的上下文
+     *
      * @param context
      */
-    public static void initStoredFileContext(Context context){
+    public static void initStoredFileContext(Context context) {
         PlatformForAndroidFeatureInfo.bindContext(context);
     }
 
@@ -51,7 +52,7 @@ public class L {
      * @param message
      */
     public static void i(String tag, String message) {
-        for(LoggerAdapter logger : localLoggers.get()){
+        for (LoggerAdapter logger : localLoggers.get()) {
             logger.log(Log.INFO, tag, message);
         }
     }
@@ -63,7 +64,7 @@ public class L {
      * @param message
      */
     public static void d(String tag, String message) {
-        for(LoggerAdapter logger : localLoggers.get()){
+        for (LoggerAdapter logger : localLoggers.get()) {
             logger.log(Log.DEBUG, tag, message);
         }
     }
@@ -79,6 +80,7 @@ public class L {
         w(tag, str);
     }
 
+
     /**
      * Log.w
      *
@@ -86,9 +88,20 @@ public class L {
      * @param message
      */
     public static void w(String tag, String message) {
-        for(LoggerAdapter logger : localLoggers.get()){
+        for (LoggerAdapter logger : localLoggers.get()) {
             logger.log(Log.WARN, tag, message);
         }
+    }
+
+    /**
+     * Log.e
+     *
+     * @param tag
+     * @param throwable
+     */
+    public static void e(String tag, Throwable throwable) {
+        String str = LUtil.format(throwable);
+        e(tag, str);
     }
 
     /**
@@ -98,7 +111,7 @@ public class L {
      * @param message
      */
     public static void e(String tag, String message) {
-        for(LoggerAdapter logger : localLoggers.get()){
+        for (LoggerAdapter logger : localLoggers.get()) {
             logger.log(Log.ERROR, tag, message);
         }
     }

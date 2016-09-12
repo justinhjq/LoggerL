@@ -29,7 +29,7 @@ public class PrettyTermLogAdapter implements LoggerAdapter {
     public void log(int priority, String tag, String message) {
         String headLog = logThreadInfo();
 
-        String traceLog = LUtil.logStackTraceInfo(5);
+        String traceLog = LUtil.logStackTraceInfo();
 
         byte[] bytes = message.getBytes();
 
@@ -39,7 +39,8 @@ public class PrettyTermLogAdapter implements LoggerAdapter {
         Log.println(priority, tag, MIDDLE_BORDER);
 
         // 堆栈信息
-        Log.println(priority, tag, HORIZONTAL_DOUBLE_LINE + " " + traceLog);
+//        Log.println(priority, tag, HORIZONTAL_DOUBLE_LINE + " " + traceLog);
+        logContent(priority, tag, traceLog);
         Log.println(priority, tag, MIDDLE_BORDER);
 
         // 内容

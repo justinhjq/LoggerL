@@ -34,6 +34,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.i("Navive", sb.toString());
 
-        L.d("YICHU", sb.toString());
+        L.e("YICHU", sb.toString());
     }
 }

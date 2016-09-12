@@ -137,7 +137,7 @@ public class WriteExternalLogAdapter implements LoggerAdapter{
     private String wrapMsg(String msg){
 
         StringBuilder msgNew = new StringBuilder();
-        String stackTraceInfo = LUtil.logStackTraceInfo(6);
+        String stackTraceInfo = LUtil.logStackTraceInfo();
         msgNew.append(" ")
                 .append(currentTime())
                 .append( ":  ")

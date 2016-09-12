@@ -17,20 +17,27 @@ public class LUtil {
         return sw.toString();
     }
 
-    /**
-     * 打印当前方法
-     */
-    public static String logStackTraceInfo(int stackIndex) {
+    static int logStackTraceIndex(StackTraceElement[] trace){
+        int start = 2;
+        for(; start<trace.length; start++){
+            String clzName = trace[start].getClassName();
+            int lastIndex = clzName.lastIndexOf(".");
+            clzName = clzName.substring(lastIndex + 1);
+            if(clzName.equals("L")){
+                start++;
+                break;
+            }
+        }
+        return start;
+    }
 
-        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-        stackIndex = stackIndex > trace.length ? trace.length - 1 : stackIndex;
-
-        StringBuilder methodLog = new StringBuilder();
+    static String logStackTrancInfo_real(StackTraceElement[] trace, int stackIndex){
+        StringBuilder sb = new StringBuilder();
 
         String clzName = trace[stackIndex].getClassName();
         int lastIndex = clzName.lastIndexOf(".");
         clzName = clzName.substring(lastIndex + 1);
-        methodLog.append(clzName)
+        sb.append(clzName)
                 .append(".")
                 .append(trace[stackIndex].getMethodName())
                 .append("(")
@@ -39,6 +46,21 @@ public class LUtil {
                 .append(trace[stackIndex].getLineNumber())
                 .append(")");
 
+        return sb.toString();
+    }
+
+    /**
+     * 打印当前方法
+     */
+    public static String logStackTraceInfo() {
+
+        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+        int stackIndex = logStackTraceIndex(trace);
+
+        StringBuilder methodLog = new StringBuilder();
+        methodLog.append(logStackTrancInfo_real(trace, stackIndex+1))
+                .append("\n    ")
+                .append(logStackTrancInfo_real(trace, stackIndex));
         return methodLog.toString();
     }
 
