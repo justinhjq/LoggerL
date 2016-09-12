@@ -19,13 +19,20 @@ public class LUtil {
 
     static int logStackTraceIndex(StackTraceElement[] trace){
         int start = 2;
+
+        int firstLIndex = -1;
         for(; start<trace.length; start++){
             String clzName = trace[start].getClassName();
             int lastIndex = clzName.lastIndexOf(".");
             clzName = clzName.substring(lastIndex + 1);
+
+            // 越过堆栈中L的信息
             if(clzName.equals("L")){
-                start++;
-                break;
+                firstLIndex = start;
+            }else{
+                if(firstLIndex != -1){
+                    break;
+                }
             }
         }
         return start;
