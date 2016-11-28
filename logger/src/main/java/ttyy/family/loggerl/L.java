@@ -138,4 +138,18 @@ public class L {
         }
     }
 
+    /**
+     * 设置模式
+     * @param isDebug
+     */
+    public static void setMode(boolean isDebug){
+        if(isDebug){
+            loggers.clear();
+            loggers.add(LoggerAdapter.Default);
+            loggers.add(LoggerAdapter.File);
+        }else {
+            loggers.clear();
+        }
+    }
+
 }
